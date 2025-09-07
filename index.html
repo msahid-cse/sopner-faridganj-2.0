@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="bn" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>স্বপ্নের ফরিদগঞ্জ</title>
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌟</text></svg>">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Bengali -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --bg-color-light: #f3f4f6;
+            --text-color-light: #1f2937;
+            --primary-color-light: #10b981;
+            --secondary-color-light: #6b7280;
+            --card-bg-light: #ffffff;
+            --accent-color-light: #3b82f6;
+
+            --bg-color-dark: #1f2937;
+            --text-color-dark: #e5e7eb;
+            --primary-color-dark: #34d399;
+            --secondary-color-dark: #9ca3af;
+            --card-bg-dark: #374151;
+            --accent-color-dark: #60a5fa;
+        }
+
+        body {
+            font-family: 'Noto Sans Bengali', sans-serif;
+            background-color: var(--bg-color-light);
+            color: var(--text-color-light);
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        .dark body {
+            background-color: var(--bg-color-dark);
+            color: var(--text-color-dark);
+        }
+
+        .card, .header, .footer {
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        .card {
+            background-color: var(--card-bg-light);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .dark .card {
+            background-color: var(--card-bg-dark);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        .text-primary {
+            color: var(--primary-color-light);
+        }
+        .dark .text-primary {
+            color: var(--primary-color-dark);
+        }
+        .text-secondary {
+            color: var(--secondary-color-light);
+        }
+        .dark .text-secondary {
+            color: var(--text-color-dark);
+        }
+        .dark .bg-gray-50 {
+            background-color: #374151;
+            color: var(--text-color-dark);
+        }
+        .dark .bg-gray-700 {
+            background-color: #374151;
+        }
+
+        .hover-effect:hover {
+            transform: translateY(-4px);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .image-slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .image-slider img {
+            width: 100%;
+            flex-shrink: 0;
+            object-fit: cover;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        .animate-pulse-custom {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        /* QR Code Modal styles */
+        .qr-modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .qr-modal-content {
+            position: relative;
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 80%;
+            text-align: center;
+        }
+        .qr-modal-close {
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* CSS for the hero slider */
+        .hero-slider-item {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-slider-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        .hero-slider-content {
+            position: relative;
+            z-index: 2;
+            padding: 1.5rem;
+            max-width: 800px;
+        }
+        .donation-item-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            align-items: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-800 transition-colors duration-300">
+    
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-900 shadow-md sticky top-0 z-50 transition-colors duration-300">
+        <div class="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between">
+            <!-- Logo and Name -->
+            <div class="flex items-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-emerald-500" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                <a href="#" class="text-2xl font-bold text-gray-800 dark:text-white">স্বপ্নের ফরিদগঞ্জ</a>
+            </div>
+    
+            <!-- Mobile Menu, Upobitti and Theme Switcher Buttons -->
+            <div class="flex items-center space-x-4 lg:hidden">
+                <!-- Upobitti button for mobile view -->
+                <a href="#upobitti-section" class="px-3 py-1 bg-emerald-500 text-white rounded-full font-semibold text-sm animate-pulse-custom">বৃত্তি পরিক্ষা</a>
+                <!-- Theme Switcher for mobile -->
+                <button id="theme-switcher-mobile" class="text-gray-600 dark:text-gray-300 focus:outline-none">
+                    <svg id="moon-icon-mobile" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                    <svg id="sun-icon-mobile" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                </button>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="text-gray-500 dark:text-gray-400 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+    
+            <!-- Navigation Links (Hidden on mobile by default) -->
+            <nav id="main-nav" class="hidden lg:flex flex-col lg:flex-row lg:space-x-8 items-center mt-4 lg:mt-0 w-full lg:w-auto">
+                <a href="#about-us" class="nav-link block lg:inline-block text-gray-600 dark:text-gray-300 hover:text-emerald-500 dark:hover:text-emerald-400 py-2 lg:py-0">আমাদের সম্পর্কে</a>
+                <a href="#activities" class="nav-link block lg:inline-block text-gray-600 dark:text-gray-300 hover:text-emerald-500 dark:hover:text-emerald-400 py-2 lg:py-0">কার্যক্রম</a>
+                <a href="#gallery" class="nav-link block lg:inline-block text-gray-600 dark:text-gray-300 hover:text-emerald-500 dark:hover:text-emerald-400 py-2 lg:py-0">গ্যালারি</a>
+                <a href="#fund" class="nav-link block lg:inline-block text-gray-600 dark:text-gray-300 hover:text-emerald-500 dark:hover:text-emerald-400 py-2 lg:py-0">ফান্ড</a>
+                <a href="#donation" class="nav-link block lg:inline-block text-gray-600 dark:text-gray-300 hover:text-emerald-500 dark:hover:text-emerald-400 py-2 lg:py-0">ডোনেশন</a>
+                <a href="#contact" class="nav-link block lg:inline-block text-gray-600 dark:text-gray-300 hover:text-emerald-500 dark:hover:text-emerald-400 py-2 lg:py-0">যোগাযোগ</a>
+                <a href="#poramosso" class="nav-link block lg:inline-block text-gray-600 dark:text-gray-300 hover:text-emerald-500 dark:hover:text-emerald-400 py-2 lg:py-0">পরামর্শ</a>
+
+                
+                <!-- Quick Action Button for desktop -->
+                <a href="#upobitti-section" class="nav-link px-4 py-2 mt-4 lg:mt-0 bg-emerald-500 text-white rounded-full font-semibold hover:bg-emerald-600 transition-colors duration-300 hidden lg:inline-block">বৃত্তি পরিক্ষা</a>
+    
+                <!-- Theme Switcher for desktop -->
+                <button id="theme-switcher-desktop" class="text-gray-600 dark:text-gray-300 hover:text-emerald-500 dark:hover:text-emerald-400 focus:outline-none mt-4 lg:mt-0">
+                    <svg id="moon-icon-desktop" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                    <svg id="sun-icon-desktop" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                </button>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container mx-auto px-4 py-8">
+        <!-- Hero Section with Background Slider -->
+        <section class="relative h-96 w-full overflow-hidden rounded-xl shadow-lg mt-8 mb-12">
+            <div id="hero-slider" class="image-slider h-full">
+                <div class="hero-slider-item" style="background-image: url('https://placehold.co/1200x600/3B82F6/ffffff?text=Slide+1');"></div>
+                <div class="hero-slider-item" style="background-image: url('https://placehold.co/1200x600/10B981/ffffff?text=Slide+2');"></div>
+                <div class="hero-slider-item" style="background-image: url('https://placehold.co/1200x600/EF4444/ffffff?text=Slide+3');"></div>
+                <div class="hero-slider-item" style="background-image: url('https://placehold.co/1200x600/9CA3AF/ffffff?text=Slide+4');"></div>
+                <div class="hero-slider-item" style="background-image: url('https://placehold.co/1200x600/F59E0B/ffffff?text=Slide+5');"></div>
+            </div>
+            <div class="absolute inset-0 bg-black bg-opacity-50 z-10 flex items-center justify-center p-4">
+                <div class="text-center text-white p-6 rounded-lg max-w-2xl">
+                    <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
+                        স্বপ্নের ফরিদগঞ্জ: স্বপ্ন আর সম্ভাবনার পথে
+                    </h1>
+                    <p class="text-lg md:text-xl font-medium">
+                        ফরিদগঞ্জের প্রতিটি মানুষের জন্য একটি উজ্জ্বল ভবিষ্যৎ গড়ার লক্ষ্যে আমরা কাজ করে যাচ্ছি।
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Story Section (আমাদের সম্পর্কে) -->
+        <section id="about-us" class="py-16">
+            <div class="card dark:card-bg-dark rounded-xl shadow-lg p-8 md:p-12 hover-effect">
+                <h2 class="text-3xl font-bold text-center mb-6 text-primary">আমাদের সম্পর্কে</h2>
+                <div class="text-secondary text-lg leading-relaxed text-justify">
+                    <div id="about-us-content">
+                        "স্বপ্নের ফরিদগঞ্জ" একটি স্বপ্ন, একটি অঙ্গীকার, যা ২০২৪ সালে চাঁদপুর জেলার ফরিদগঞ্জ উপজেলায় যাত্রা শুরু করে। এটি নিছকই একটি সামাজিক সংগঠন নয়, বরং ফরিদগঞ্জের মানুষের সম্মিলিত প্রচেষ্টার এক মূর্ত প্রতীক, যা সমাজের প্রতিটি স্তরে ইতিবাচক পরিবর্তন আনার লক্ষ্যে কাজ করে চলেছে।
+
+                        আমরা বিশ্বাস করি, প্রতিটি মানুষের জীবনে সম্ভাবনা রয়েছে এবং সঠিক সুযোগ ও সহায়তার মাধ্যমে সেই সম্ভাবনাকে বিকশিত করা সম্ভব। এই বিশ্বাসকে ধারণ করে, "স্বপ্নের ফরিদগঞ্জ" শিক্ষা, স্বাস্থ্য, পরিবেশ সুরক্ষা, এবং মানবিক সহায়তা সহ বিভিন্ন ক্ষেত্রে কাজ করে যাচ্ছে। 
+                        
+                        <span id="full-text" class="hidden">
+                        আমাদের মূল উদ্দেশ্য হলো সমাজের পিছিয়ে পড়া জনগোষ্ঠীর পাশে দাঁড়ানো, তাদের মৌলিক চাহিদা পূরণে সহায়তা করা এবং একটি সুন্দর ও সমৃদ্ধ ফরিদগঞ্জ গড়ে তোলার পথে অবদান রাখা।
+
+                        আমাদের স্বেচ্ছাসেবক এবং শুভাকাঙ্ক্ষীদের অক্লান্ত পরিশ্রম ও নিঃস্বার্থ ভালোবাসাই আমাদের প্রধান শক্তি। আমরা স্বচ্ছতা ও জবাবদিহিতার সাথে কাজ করি, যাতে আমাদের প্রতিটি কার্যক্রম সমাজের প্রকৃত উন্নয়নে সহায়ক হয়। "স্বপ্নের ফরিদগঞ্জ" শুধু বর্তমানের জন্য নয়, ভবিষ্যতের জন্য একটি সুস্থ, শিক্ষিত এবং মানবিক সমাজ গড়ার স্বপ্ন দেখে। আমরা এই মহৎ যাত্রায় আপনাদের সহযোগিতা ও সমর্থন কামনা করি। </span>
+
+                    </div>
+                    <div class="text-center mt-4">
+                        <button id="view-more-btn" class="text-blue-500 dark:text-blue-400 font-semibold hover:underline">আরও দেখুন</button>
+                    </div>
+                </div>
+                <div class="text-center mt-8">
+                    <a href="https://forms.gle/ufCa7ZTqcb2KRmvv8" target="_blank" class="inline-block px-6 py-3 bg-blue-500 text-white rounded-full font-semibold hover:bg-blue-600 transition-colors duration-300">নতুন সদস্য হিসেবে নিবন্ধন করুন</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Activities Section (কার্যক্রম) -->
+        <section id="activities" class="py-16">
+            <h2 class="text-3xl font-bold text-center mb-8 text-primary">আমাদের কার্যক্রম</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card dark:card-bg-dark rounded-xl shadow-lg p-6 hover-effect">
+                    <h3 class="text-xl font-semibold mb-4 text-primary">শিক্ষা সহায়তা প্রোগ্রাম</h3>
+                    <p class="text-secondary">
+                        গরীব ও মেধাবী শিক্ষার্থীদের জন্য বৃত্তি প্রদান, শিক্ষা উপকরণ বিতরণ, এবং কোচিং-এর ব্যবস্থা।
+                    </p>
+                </div>
+                <div class="card dark:card-bg-dark rounded-xl shadow-lg p-6 hover-effect">
+                    <h3 class="text-xl font-semibold mb-4 text-primary">স্বাস্থ্যসেবা ক্যাম্প</h3>
+                    <p class="text-secondary">
+                        নিয়মিত স্বাস্থ্য পরীক্ষা, বিনামূল্যে ঔষধ বিতরণ, এবং স্বাস্থ্য সচেতনতা বৃদ্ধি কার্যক্রম।
+                    </p>
+                </div>
+                <div class="card dark:card-bg-dark rounded-xl shadow-lg p-6 hover-effect">
+                    <h3 class="text-xl font-semibold mb-4 text-primary">পরিবেশ সংরক্ষণ</h3>
+                    <p class="text-secondary">
+                        বৃক্ষরোপণ অভিযান, বর্জ্য ব্যবস্থাপনা, এবং পরিবেশ দূষণ রোধে সচেতনতা বৃদ্ধি।
+                    </p>
+                </div>
+                <div class="card dark:card-bg-dark rounded-xl shadow-lg p-6 hover-effect">
+                    <h3 class="text-xl font-semibold mb-4 text-primary">ত্রাণ ও দুর্যোগ ব্যবস্থাপনা</h3>
+                    <p class="text-secondary">
+                        প্রাকৃতিক দুর্যোগে ক্ষতিগ্রস্তদের পাশে দাঁড়ানো, খাদ্য, বস্ত্র, এবং আশ্রয় প্রদান।
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upobitti Section -->
+        <section id="upobitti-section" class="py-16">
+            <div class="card dark:card-bg-dark rounded-xl shadow-lg p-8 md:p-12 hover-effect">
+                <h2 class="text-3xl font-bold text-center mb-6 text-primary">বৃত্তি পরিক্ষা</h2>
+                <p class="text-secondary text-lg leading-relaxed text-justify mb-8">
+                   <center><b>স্বপ্নের ফরিদগঞ্জের ১ম প্রতিষ্ঠা বার্ষিকী উপলক্ষে বৃত্তি পরিক্ষা ২০২৫। </b></center>
+                    পরীক্ষার বিষয় বাংলা, ইংরেজি, গণিত ও সাধারণ জ্ঞান। নিবন্ধন ফি ৩য়–৫ম শ্রেণির জন্য ৫০ টাকা এবং ৬ষ্ঠ–৮ম শ্রেণির জন্য ১০০ টাকা। নিবন্ধনের শেষ তারিখ ১৫ নভেম্বর ২০২৫।
+                    <b>
+
+                    প্রতিটি শ্রেণি থেকে সেরা ৫ জন শিক্ষার্থী বৃত্তি পাবে। দুটি গ্রেডে ফলাফল ঘোষণা করা হবে; ১. ট্যালেন্টপুল ২. সাধারণ গ্রেড। সাধারণ বৃত্তি ১,৫০০ টাকা, সম্মাননা ক্রেস্ট ও সনদপত্র | ট্যালেন্টপুল ২,০০০ টাকা, সম্মাননা ক্রেস্ট ও সনদপত্র। </b>
+
+                    পরীক্ষার্থীদের ইউনিফর্ম পরে আসতে হবে এবং অ্যাডমিট কার্ড আনতে হবে। পরীক্ষা শুরুর ১৫ মিনিট পর প্রবেশ করা যাবে না। বই, মোবাইল, ব্যাগ বা ক্যালকুলেটর আনা নিষেধ। নকল করলে পরীক্ষার্থী বহিষ্কার হবে।
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow-inner">
+                        <h4 class="font-semibold mb-2 flex items-center justify-between text-primary">
+                            <span>নোটিশ</span>
+                            <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full animate-pulse">নতুন</span>
+                        </h4>
+                        <ul class="list-disc list-inside text-secondary">
+                            <li>ফরম গ্রহণ ও জমা দেওয়ার তারিখ -    ১০/১১/২০২৫</li>
+                             <li>ভেন্যু - ফরিদগঞ্জ সরকারি ডিগ্রি কলেজ</li>
+                            <li>পরীক্ষার তারিখ - শিঘ্রই জানানো হবে</li>
+                            <li>ফলাফল প্রকাশিত - শিঘ্রই জানানো হবে</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow-inner">
+                        <h4 class="font-semibold mb-2 text-primary">উপবৃত্তির ফর্ম (PDF)</h4>
+                        <a href="https://drive.google.com/file/d/1NOyIidIrjpR0wCv5nvJdDnb0NzZfcyKL/view?usp=drive_link" class="text-blue-500 hover:underline" target="_blank">ডাউনলোড করুন</a>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow-inner">
+                        <h4 class="font-semibold mb-2 text-primary">সিলেবাস (PDF)</h4>
+                        <a href="https://drive.google.com/file/d/1lxOfdIEr_c0zfl2h582Pccpv0rL7iDS_/view?usp=sharing" class="text-blue-500 hover:underline" target="_blank">ডাউনলোড করুন</a>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow-inner">
+                        <h4 class="font-semibold mb-2 text-primary">উপবৃত্তির ফলাফল (PDF)</h4>
+                        <p>ফলাফল প্রকাশিত - শিঘ্রই জানানো হবে</p>
+                        <!-- <a href="#" class="text-blue-500 hover:underline">ডাউনলোড করুন</a> -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="py-16">
+            <h2 class="text-3xl font-bold text-center mb-8 text-primary">গ্যালারি</h2>
+            <div class="flex justify-center space-x-4 mb-8">
+                <button class="year-btn px-4 py-2 rounded-full font-semibold bg-emerald-500 text-white" data-year="2025">২০২৫</button>
+                <button class="year-btn px-4 py-2 rounded-full font-semibold bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200" data-year="2024">২০২৪</button>
+                <button class="year-btn px-4 py-2 rounded-full font-semibold bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200" data-year="old">পুরোনো</button>
+            </div>
+            
+            <!-- Gallery Content for 2025 -->
+            <div id="gallery-2025" class="gallery-year grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                 <!-- Gallery Folder Example 1 (2025) -->
+                <div class="gallery-folder card dark:card-bg-dark rounded-xl shadow-lg p-4 hover-effect cursor-pointer" data-folder="proj-a">
+                    <div class="w-full h-48 bg-gray-200 dark:bg-gray-700 rounded-lg mb-4 flex items-center justify-center">
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-primary">শিক্ষা সহায়তা প্রোগ্রাম ২০২৫</h3>
+                    <p class="text-sm text-secondary">তারিখ: ১৫ জানুয়ারি ২০২৫</p>
+                </div>
+            </div>
+
+            <!-- Gallery Content for 2024 -->
+            <div id="gallery-2024" class="gallery-year hidden grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Gallery Folder Example 1 (2024) -->
+                <div class="gallery-folder card dark:card-bg-dark rounded-xl shadow-lg p-4 hover-effect cursor-pointer" data-folder="proj-b">
+                    <div class="w-full h-48 bg-gray-200 dark:bg-gray-700 rounded-lg mb-4 flex items-center justify-center">
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-primary">বৃক্ষরোপণ অভিযান ২০২৪</h3>
+                    <p class="text-sm text-secondary">অংশগ্রহণকারী: ৫০০+ স্বেচ্ছাসেবক</p>
+                </div>
+            </div>
+            
+            <!-- Gallery Content for Old -->
+            <div id="gallery-old" class="gallery-year hidden grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <p class="text-secondary">এই বছরের জন্য কোনো কাজ নেই।</p>
+            </div>
+
+            <!-- Modal for displaying folder images -->
+            <div id="image-modal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden flex items-center justify-center p-4">
+                <div class="relative bg-white dark:bg-gray-800 rounded-lg max-w-3xl w-full p-4">
+                    <button id="close-modal-btn" class="absolute top-2 right-2 text-gray-600 dark:text-gray-300 hover:text-red-500">&times;</button>
+                    <div id="modal-image-container" class="w-full overflow-hidden rounded-lg">
+                        <div id="modal-slider" class="flex transition-transform duration-300">
+                           <!-- Images will be injected here by JS -->
+                        </div>
+                    </div>
+                    <div class="flex justify-center space-x-4 mt-4">
+                        <button id="prev-btn" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-full">&larr;</button>
+                        <button id="next-btn" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-full">&rarr;</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fund Section (ফান্ড) -->
+        <section id="fund" class="py-16">
+            <div class="card dark:card-bg-dark rounded-xl shadow-lg p-8 md:p-12 hover-effect text-center">
+                <h2 class="text-3xl font-bold mb-4 text-primary">আমাদের ফান্ড</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mt-6">
+                    <div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-700 shadow-inner">
+                        <h3 class="text-2xl font-bold text-secondary">বর্তমান ফান্ড</h3>
+                        <p class="text-4xl font-extrabold text-green-600 dark:text-green-400">৳ ৫,২০,০০০</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-700 shadow-inner">
+                        <h3 class="text-2xl font-bold text-secondary">মোট খরচ</h3>
+                        <p class="text-4xl font-extrabold text-red-600 dark:text-red-400">৳ ৪,৫০,০০০</p>
+                        <button id="view-expenses-btn" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-full font-semibold hover:bg-blue-600">বিস্তারিত দেখুন</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Expenses Details Modal -->
+        <div id="expenses-modal" class="qr-modal">
+            <div class="qr-modal-content dark:bg-gray-800">
+                <button id="close-expenses-btn" class="qr-modal-close">&times;</button>
+                <h3 class="text-2xl font-bold mb-4 text-primary">খরচের তালিকা</h3>
+                <p class="text-secondary mb-4">স্বপ্নের ফরিদগঞ্জ</p>
+                <div id="expenses-list" class="text-left text-secondary mb-4">
+                    <!-- Expenses list will be populated here -->
+                </div>
+                <button id="download-pdf-btn" class="px-6 py-3 bg-red-500 text-white rounded-full font-semibold hover:bg-red-600">PDF ডাউনলোড করুন</button>
+            </div>
+        </div >
+
+        <!-- Donation Section (ডোনেশন) -->
+        <section id="donation" class="py-16">
+            <div class="card dark:card-bg-dark rounded-xl shadow-lg p-8 md:p-12 hover-effect text-center">
+                <h2 class="text-3xl font-bold mb-4 text-primary">আমাদের ডোনেশন</h2>
+                <p class="text-secondary mb-6 max-w-2xl mx-auto">
+                    আপনার সামান্য অনুদানও আমাদের একটি বড় স্বপ্নের অংশ হতে পারে। সমাজের সুবিধাবঞ্চিত মানুষদের সাহায্য করার জন্য আমাদের কার্যক্রমে সহায়তার জন্য নিচে দেওয়া মোবাইল ব্যাংকিং নম্বরে যেকোনো পরিমাণ ডোনেট করতে পারেন।
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                    <!-- Bkash -->
+                    <div class="p-6 rounded-lg bg-gray-50 dark:bg-gray-700 shadow-inner donation-card">
+                        <h3 class="text-xl font-bold text-pink-600 dark:text-pink-400 mb-2">বিকাশ (এজেন্ট)</h3>
+                        <div class="flex flex-col items-center justify-center space-y-4">
+                             <div class="flex justify-center items-center space-x-2">
+                                <p class="text-lg font-bold text-secondary">০১৯১০০০০০০০</p>
+                                <img class="w-16 h-16 rounded-lg cursor-pointer qr-code" data-modal="qr-bkash-modal" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=01910000000" alt="বিকাশ কিউআর কোড">
+                             </div>
+                        </div>
+                    </div>
+                    <!-- Nagad -->
+                    <div class="p-6 rounded-lg bg-gray-50 dark:bg-gray-700 shadow-inner donation-card">
+                        <h3 class="text-xl font-bold text-red-600 dark:text-red-400 mb-2">নগদ (এজেন্ট)</h3>
+                        <div class="flex flex-col items-center justify-center space-y-4">
+                            <div class="flex justify-center items-center space-x-2">
+                                <p class="text-lg font-bold text-secondary">০১৯১০০০০০০০</p>
+                                <img class="w-16 h-16 rounded-lg cursor-pointer qr-code" data-modal="qr-nagad-modal" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=01910000000" alt="নগদ কিউআর কোড">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Rocket -->
+                    <div class="p-6 rounded-lg bg-gray-50 dark:bg-gray-700 shadow-inner donation-card">
+                        <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">রকেট (এজেন্ট)</h3>
+                        <div class="flex flex-col items-center justify-center space-y-4">
+                            <div class="flex justify-center items-center space-x-2">
+                                <p class="text-lg font-bold text-secondary">০১৭০০০০০০০০</p>
+                                <img class="w-16 h-16 rounded-lg cursor-pointer qr-code" data-modal="qr-rocket-modal" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=01700000000" alt="রকেট কিউআর কোড">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QR Code Modals -->
+        <div id="qr-bkash-modal" class="qr-modal">
+            <div class="qr-modal-content">
+                <span class="qr-modal-close">&times;</span>
+                <h3 class="text-2xl font-bold mb-4">বিকাশ কিউআর কোড</h3>
+                <img class="mx-auto" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=01910000000" alt="বিকাশ কিউআর কোড">
+            </div>
+        </div>
+        <div id="qr-nagad-modal" class="qr-modal">
+            <div class="qr-modal-content">
+                <span class="qr-modal-close">&times;</span>
+                <h3 class="text-2xl font-bold mb-4">নগদ কিউআর কোড</h3>
+                <img class="mx-auto" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=01910000000" alt="নগদ কিউআর কোড">
+            </div>
+        </div>
+        <div id="qr-rocket-modal" class="qr-modal">
+            <div class="qr-modal-content">
+                <span class="qr-modal-close">&times;</span>
+                <h3 class="text-2xl font-bold mb-4">রকেট কিউআর কোড</h3>
+                <img class="mx-auto" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=01700000000" alt="রকেট কিউআর কোড">
+            </div>
+        </div>
+        
+        <!-- Poramosso Section (পরামর্শ) -->
+        <section id="poramosso" class="py-16">
+            <div class="card dark:card-bg-dark rounded-xl shadow-lg p-8 md:p-12 hover-effect">
+                <h2 class="text-3xl font-bold text-center mb-6 text-primary">আপনার মূল্যবান পরামর্শ দিন</h2>
+                <div class="text-secondary text-center mb-6">
+                    <p>আপনার মতামত আমাদের জন্য অত্যন্ত গুরুত্বপূর্ণ। আমাদের কার্যক্রম সম্পর্কে যেকোনো পরামর্শ বা মন্তব্য নিচে দেওয়া লিংকের মাধ্যমে আমাদের জানাতে পারেন।</p>
+                </div>
+                <div class="text-center mt-8">
+                    <a href="https://forms.gle/YOUR_SUGGESTION_FORM_ID" target="_blank" class="inline-block px-6 py-3 bg-blue-500 text-white rounded-full font-semibold hover:bg-blue-600 transition-colors duration-300">পরামর্শ ফর্ম</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section (যোগাযোগ) -->
+        <section id="contact" class="py-16">
+            <div class="card dark:card-bg-dark rounded-xl shadow-lg p-8 md:p-12 hover-effect">
+                <h2 class="text-3xl font-bold text-center mb-6 text-primary">যোগাযোগ</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="text-lg text-secondary space-y-4 text-center md:text-left">
+                        <p>
+                            <span class="font-semibold">ঠিকানা:</span> ফরিদগঞ্জ, চাঁদপুর, বাংলাদেশ
+                        </p>
+                        <p>
+                            <span class="font-semibold">ইমেইল:</span> info@sopnerfaridganj.org
+                        </p>
+                        <p>
+                            <span class="font-semibold">ফোন:</span> ০১৭০০০০০০০০
+                        </p>
+                        <!-- Social Media Icons -->
+                        <div class="flex justify-center md:justify-start space-x-6 mt-8">
+                            <a href="#" class="text-secondary hover:text-blue-600"><i class="fab fa-facebook-square text-3xl"></i></a>
+                            <a href="#" class="text-secondary hover:text-blue-400"><i class="fab fa-twitter-square text-3xl"></i></a>
+                            <a href="#" class="text-secondary hover:text-red-600"><i class="fab fa-youtube-square text-3xl"></i></a>
+                            <a href="#" class="text-secondary hover:text-pink-600"><i class="fab fa-instagram-square text-3xl"></i></a>
+                        </div>
+                    </div>
+                    <div class="w-full h-80 rounded-xl shadow-lg overflow-hidden">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3680.1130383187127!2d90.83549721495944!3d23.40794598471131!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3754974f1d07c089%3A0x82b9e6f3d10a26e7!2sFaridganj%2C%20Chandpur%2C%20Bangladesh!5e0!3m2!1sen!2sus!4v1628173495444!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-8 transition-colors duration-300">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; ২০২৪ স্বপ্নের ফরিদগঞ্জ। সর্বস্বত্ব সংরক্ষিত।</p>
+            <p class="mt-2 text-sm text-gray-500">
+                Developed with ❤️ by <a href="https://msahid.netlify.app/" target="_blank" class="text-emerald-400 hover:underline">Md. Sahid</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- jsPDF and jsPDF-AutoTable CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <script>
+        // JavaScript for theme switching
+        const themeSwitchers = document.querySelectorAll('#theme-switcher-mobile, #theme-switcher-desktop');
+        const sunIcons = document.querySelectorAll('#sun-icon-mobile, #sun-icon-desktop');
+        const moonIcons = document.querySelectorAll('#moon-icon-mobile, #moon-icon-desktop');
+
+        const currentTheme = localStorage.theme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (currentTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+            sunIcons.forEach(icon => icon.classList.remove('hidden'));
+            moonIcons.forEach(icon => icon.classList.add('hidden'));
+        } else {
+            document.documentElement.classList.remove('dark');
+            sunIcons.forEach(icon => icon.classList.add('hidden'));
+            moonIcons.forEach(icon => icon.classList.remove('hidden'));
+        }
+
+        themeSwitchers.forEach(switcher => {
+            switcher.addEventListener('click', () => {
+                const htmlElement = document.documentElement;
+                if (htmlElement.classList.contains('dark')) {
+                    htmlElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                    sunIcons.forEach(icon => icon.classList.add('hidden'));
+                    moonIcons.forEach(icon => icon.classList.remove('hidden'));
+                } else {
+                    htmlElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                    sunIcons.forEach(icon => icon.classList.remove('hidden'));
+                    moonIcons.forEach(icon => icon.classList.add('hidden'));
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mainNav = document.getElementById('main-nav');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mainNav.classList.toggle('hidden');
+            mainNav.classList.toggle('flex');
+        });
+
+        // Hide mobile menu on link click
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 1024) {
+                    mainNav.classList.add('hidden');
+                }
+            });
+        });
+
+        // Image Slider
+        let currentSlide = 0;
+        const sliderContainer = document.getElementById('hero-slider');
+        const totalSlides = sliderContainer.children.length;
+
+        function showSlide(index) {
+            currentSlide = (index + totalSlides) % totalSlides;
+            sliderContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 5000); // Change image every 5 seconds
+
+        // "About Us" view more functionality
+        const aboutUsContent = document.getElementById('about-us-content');
+        const viewMoreBtn = document.getElementById('view-more-btn');
+        const fullText = document.getElementById('full-text');
+
+        viewMoreBtn.addEventListener('click', () => {
+            if (fullText.classList.contains('hidden')) {
+                fullText.classList.remove('hidden');
+                viewMoreBtn.textContent = 'কম দেখুন';
+            } else {
+                fullText.classList.add('hidden');
+                viewMoreBtn.textContent = 'আরও দেখুন';
+            }
+        });
+
+        // Gallery Year filtering
+        const yearButtons = document.querySelectorAll('.year-btn');
+        const gallerySections = document.querySelectorAll('.gallery-year');
+
+        yearButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const year = button.dataset.year;
+                
+                gallerySections.forEach(section => {
+                    section.classList.add('hidden');
+                    section.classList.remove('grid');
+                });
+                yearButtons.forEach(btn => {
+                    btn.classList.remove('bg-emerald-500', 'text-white');
+                    btn.classList.add('bg-gray-200', 'dark:bg-gray-700', 'text-gray-800', 'dark:text-gray-200');
+                });
+
+                document.getElementById(`gallery-${year}`).classList.remove('hidden');
+                document.getElementById(`gallery-${year}`).classList.add('grid');
+                button.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'text-gray-800', 'dark:text-gray-200');
+                button.classList.add('bg-emerald-500', 'text-white');
+            });
+        });
+
+        // Gallery mobile view "more work" button
+        const initialGalleryFolders = 3;
+        const galleryContainers = document.querySelectorAll('.gallery-year');
+        
+        galleryContainers.forEach(container => {
+            const folders = Array.from(container.children);
+            const moreButton = document.createElement('button');
+            moreButton.textContent = 'আরও দেখুন';
+            moreButton.className = 'more-btn mt-4 px-4 py-2 bg-blue-500 text-white rounded-full font-semibold hover:bg-blue-600';
+            
+            if (folders.length > initialGalleryFolders) {
+                folders.slice(initialGalleryFolders).forEach(folder => folder.classList.add('hidden'));
+                container.appendChild(moreButton);
+            }
+
+            moreButton.addEventListener('click', () => {
+                folders.slice(initialGalleryFolders).forEach(folder => folder.classList.remove('hidden'));
+                moreButton.classList.add('hidden');
+            });
+        });
+
+
+        // Image Modal
+        const imageModal = document.getElementById('image-modal');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const galleryFolders = document.querySelectorAll('.gallery-folder');
+        const modalSlider = document.getElementById('modal-slider');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        const folderImages = {
+            'proj-a': [
+                'https://placehold.co/800x600/10b981/ffffff?text=Event+1-1',
+                'https://placehold.co/800x600/10b981/ffffff?text=Event+1-2',
+                'https://placehold.co/800x600/10b981/ffffff?text=Event+1-3'
+            ],
+            'proj-b': [
+                'https://placehold.co/800x600/10b981/ffffff?text=Event+2-1',
+                'https://placehold.co/800x600/10b981/ffffff?text=Event+2-2',
+                'https://placehold.co/800x600/10b981/ffffff?text=Event+2-3'
+            ],
+            'old': [
+                 'https://placehold.co/800x600/10b981/ffffff?text=Old+Event+1',
+                 'https://placehold.co/800x600/10b981/ffffff?text=Old+Event+2'
+            ]
+        };
+
+        let currentImageIndex = 0;
+        let imagesInModal = [];
+
+        galleryFolders.forEach(folder => {
+            folder.addEventListener('click', () => {
+                const folderId = folder.dataset.folder;
+                imagesInModal = folderImages[folderId];
+                modalSlider.innerHTML = imagesInModal.map(url => `<img src="${url}" class="w-full flex-shrink-0" alt="Gallery Image">`).join('');
+                imageModal.classList.remove('hidden');
+                imageModal.classList.add('flex');
+                currentImageIndex = 0;
+                updateModalSlider();
+            });
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            imageModal.classList.add('hidden');
+            imageModal.classList.remove('flex');
+        });
+
+        function updateModalSlider() {
+            modalSlider.style.transform = `translateX(-${currentImageIndex * 100}%)`;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex - 1 + imagesInModal.length) % imagesInModal.length;
+            updateModalSlider();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex + 1) % imagesInModal.length;
+            updateModalSlider();
+        });
+
+        // QR Code Modal functionality
+        const qrCodeImages = document.querySelectorAll('.qr-code');
+        const qrModals = document.querySelectorAll('.qr-modal');
+
+        qrCodeImages.forEach(img => {
+            img.addEventListener('click', (event) => {
+                event.stopPropagation();
+                const modalId = img.dataset.modal;
+                document.getElementById(modalId).style.display = 'flex';
+            });
+        });
+
+        qrModals.forEach(modal => {
+            const closeBtn = modal.querySelector('.qr-modal-close');
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+            window.addEventListener('click', (event) => {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+
+        // Fund Section - View Expenses
+        const expensesModal = document.getElementById('expenses-modal');
+        const viewExpensesBtn = document.getElementById('view-expenses-btn');
+        const closeExpensesBtn = document.getElementById('close-expenses-btn');
+        const expensesList = document.getElementById('expenses-list');
+        const downloadPdfBtn = document.getElementById('download-pdf-btn');
+
+        const expensesData = [
+            { date: '2024-05-01', description: 'Distribution of educational materials', amount: '৳ 1,00,000' },
+            { date: '2024-04-15', description: 'Healthcare camp', amount: '৳ 50,000' },
+            { date: '2024-03-10', description: 'Tree plantation campaign', amount: '৳ 25,000' },
+            { date: '2024-02-20', description: 'Relief distribution', amount: '৳ 2,00,000' },
+            { date: '2024-01-05', description: 'Other expenses', amount: '৳ 75,000' }
+        ];
+
+        viewExpensesBtn.addEventListener('click', () => {
+            expensesList.innerHTML = expensesData.map(item => `<p>${item.date}: ${item.description} - ${item.amount}</p>`).join('');
+            expensesModal.style.display = 'flex';
+        });
+
+        closeExpensesBtn.addEventListener('click', () => {
+            expensesModal.style.display = 'none';
+        });
+
+        // PDF Download Code for English text
+        downloadPdfBtn.addEventListener('click', () => {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const date = new Date();
+            const formattedDate = date.toLocaleDateString('en-US');
+            const formattedTime = date.toLocaleTimeString('en-US');
+
+            doc.setFontSize(20);
+            doc.text('Sopner Faridganj Expenses List', 105, 20, null, null, "center");
+            
+            doc.setFontSize(12);
+            doc.text(`Date: ${formattedDate} Time: ${formattedTime}`, 105, 30, null, null, "center");
+
+            const tableColumn = ["Date", "Description", "Amount"];
+            const tableRows = expensesData.map(item => [item.date, item.description, item.amount]);
+
+            doc.autoTable({
+                head: [tableColumn],
+                body: tableRows,
+                startY: 40,
+                theme: 'striped',
+                columnStyles: {
+                    0: { cellWidth: 40 },
+                    1: { cellWidth: 80 },
+                    2: { cellWidth: 40 }
+                }
+            });
+            
+            doc.save(`expenses_list_${Date.now()}.pdf`);
+        });
+
+    </script>
+</body>
+</html>
